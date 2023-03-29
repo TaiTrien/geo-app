@@ -23,6 +23,7 @@ class AppTheme {
           hintStyle: TextStyle(fontSize: 14, fontWeight: FontWeight.w400, color: AppColors.secondary.withOpacity(0.5)),
           suffixIconColor: AppColors.secondary,
           errorStyle: const TextStyle(fontSize: 14, fontWeight: FontWeight.w400, color: AppColors.err),
+          errorMaxLines: 3,
           border: OutlineInputBorder(
             borderRadius: BorderRadius.circular(10.0),
             borderSide: const BorderSide(

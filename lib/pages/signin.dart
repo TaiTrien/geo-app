@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:form_validator/form_validator.dart';
 import 'package:geo_app/widgets/button.dart';
 import '../utils/device.utils.dart';
 import '../variants/variants.dart';
@@ -16,33 +17,27 @@ class Signin extends StatelessWidget {
           child: Column(
             children: [
               TextFormField(
+                validator: ValidationBuilder().email().required('Please enter your email').build(),
                 decoration: const InputDecoration(
                   hintText: 'Email',
                   prefixIcon: Icon(Icons.account_circle_rounded),
                 ),
                 style: Theme.of(context).textTheme.bodyMedium?.copyWith(color: Theme.of(context).colorScheme.secondary),
-                validator: (value) {
-                  if (value == null || value.isEmpty) {
-                    return 'Please enter your email';
-                  }
-                  return null;
-                },
               ),
               const SizedBox(height: 20),
               TextFormField(
                 obscureText: true,
+                validator: ValidationBuilder()
+                    .regExp(RegExp(r"/((?=.*\d)|(?=.*\W+))(?![.\n])(?=.*[A-Z])(?=.*[a-z]).*$/"),
+                        "Password contains at least 1 uppercase letter, 1 uppercase letter and 1 number or special character!")
+                    .required('Please enter your password')
+                    .build(),
                 decoration: const InputDecoration(
                   hintText: 'Password',
                   prefixIcon: Icon(Icons.password),
                   suffixIcon: Icon(Icons.remove_red_eye), //TODO: handle view password
                 ),
                 style: Theme.of(context).textTheme.bodyMedium?.copyWith(color: Theme.of(context).colorScheme.secondary),
-                validator: (value) {
-                  if (value == null || value.isEmpty) {
-                    return 'Please enter your password';
-                  }
-                  return null;
-                },
               ),
               const Spacer(),
               Container(

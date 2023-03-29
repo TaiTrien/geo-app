@@ -1,3 +1,5 @@
+import 'package:amplify_auth_cognito/amplify_auth_cognito.dart';
+import 'package:geo_app/pages/signin.dart';
 import 'package:geo_app/pages/splash.dart';
 import 'package:geo_app/pages/welcome.dart';
 import 'package:get/get.dart';
@@ -12,6 +14,10 @@ class AppPages {
     GetPage(
       name: Routes.welcome,
       page: () => const Welcome(),
+    ),
+    GetPage(
+      name: Routes.signin,
+      page: () => Signin(),
     )
   ];
 }

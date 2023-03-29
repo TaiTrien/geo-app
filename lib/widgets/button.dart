@@ -11,12 +11,9 @@ class Button extends StatelessWidget {
   Widget build(BuildContext context) {
     return Container(
       width: double.infinity,
-      padding: const EdgeInsets.all(5),
       decoration: BoxDecoration(
         color: Theme.of(context).colorScheme.primary,
-        borderRadius: const BorderRadius.all(
-          Radius.circular(20),
-        ),
+        borderRadius: const BorderRadius.all(Radius.circular(20)),
       ).copyWith(color: backgroundColor),
       child: TextButton(
         onPressed: () => onPress(),

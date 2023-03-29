@@ -1,7 +1,9 @@
 import 'package:flutter/material.dart';
+import 'package:geo_app/routes/app.pages.dart';
 import 'package:geo_app/utils/device.utils.dart';
 import 'package:geo_app/variants/drawables.dart';
 import 'package:geo_app/widgets/button.dart';
+import 'package:get/get.dart';
 
 import '../variants/colors.dart';
 
@@ -37,7 +39,7 @@ class Welcome extends StatelessWidget {
                 children: [
                   Button(
                     label: 'Sign in',
-                    onPress: () {},
+                    onPress: () => Get.toNamed(Routes.signin),
                     backgroundColor: Theme.of(context).colorScheme.surface,
                   ),
                   TextButton(

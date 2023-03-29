@@ -3,7 +3,7 @@ import 'package:geo_app/variants/colors.dart';
 
 class AppTheme {
   static ThemeData get light => ThemeData(
-        colorScheme: const ColorScheme(
+        colorScheme: ColorScheme(
           secondary: AppColors.secondary,
           background: AppColors.white,
           brightness: Brightness.light,
@@ -14,7 +14,7 @@ class AppTheme {
           onSecondary: AppColors.secondary,
           onSurface: AppColors.white,
           primary: AppColors.primary,
-          surface: AppColors.white,
+          surface: AppColors.white.withOpacity(0.3),
         ),
         buttonTheme: const ButtonThemeData(
           buttonColor: AppColors.primary,
@@ -23,6 +23,7 @@ class AppTheme {
         ),
         textTheme: const TextTheme(
           labelMedium: TextStyle(fontSize: 16, fontWeight: FontWeight.w600),
+          displayLarge: TextStyle(fontSize: 32, fontWeight: FontWeight.w800),
         ),
       );
 }

@@ -4,7 +4,8 @@ import 'package:geo_app/variants/colors.dart';
 class Button extends StatelessWidget {
   final String label;
   final Function onPress;
-  const Button({super.key, required this.label, required this.onPress});
+  final Color? backgroundColor;
+  const Button({super.key, required this.label, required this.onPress, this.backgroundColor});
 
   @override
   Widget build(BuildContext context) {
@@ -16,7 +17,7 @@ class Button extends StatelessWidget {
         borderRadius: const BorderRadius.all(
           Radius.circular(20),
         ),
-      ),
+      ).copyWith(color: backgroundColor),
       child: TextButton(
         onPressed: () => onPress(),
         child: Text(

@@ -28,7 +28,7 @@ class Welcome extends StatelessWidget {
               Container(
                 margin: const EdgeInsets.only(top: 20),
                 child: Text(
-                  "Picked,\nTracked &\nDeliveried.\n< 2hrs",
+                  "Picked,\nTracked &\nDelivered.\n< 2hrs",
                   style: Theme.of(context).textTheme.displayLarge?.copyWith(color: AppColors.white),
                 ),
               ),

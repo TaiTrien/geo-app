@@ -41,7 +41,10 @@ class SplashState extends State<Splash> with SingleTickerProviderStateMixin {
               mainAxisSize: MainAxisSize.max,
               mainAxisAlignment: MainAxisAlignment.center,
               children: <Widget>[
-                FadeInUp(child: const FlutterLogo()),
+                FadeInUp(
+                    child: const FlutterLogo(
+                  size: 150,
+                )),
                 const SizedBox(height: 30),
               ],
             )),

@@ -1,3 +1,4 @@
+import 'package:flutter/gestures.dart';
 import 'package:flutter/material.dart';
 import 'package:form_validator/form_validator.dart';
 import 'package:geo_app/modules/auth/auth.controller.dart';
@@ -108,6 +109,25 @@ class Signin extends StatelessWidget {
                       }
                     }),
               ),
+              RichText(
+                  text: TextSpan(children: [
+                TextSpan(
+                  text: "Don\'t have an account? ",
+                  style: Theme.of(context).textTheme.labelMedium?.copyWith(
+                        color: Theme.of(context).colorScheme.secondary,
+                      ),
+                ),
+                TextSpan(
+                    text: 'Sign up',
+                    style: Theme.of(context).textTheme.labelMedium?.copyWith(
+                          color: Theme.of(context).colorScheme.primary,
+                          decoration: TextDecoration.underline,
+                        ),
+                    recognizer: TapGestureRecognizer()
+                      ..onTap = () {
+                        Get.offAndToNamed(Routes.signup);
+                      })
+              ]))
             ],
           ),
         ),

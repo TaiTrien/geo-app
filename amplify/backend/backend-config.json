@@ -1,18 +1,8 @@
 {
   "auth": {
-    "geoappd103e8e7d103e8e7": {
+    "geoapp2e33bd8c2e33bd8c": {
       "customAuth": false,
-      "dependsOn": [
-        {
-          "attributes": [
-            "Arn",
-            "Name"
-          ],
-          "category": "function",
-          "resourceName": "geoappd103e8e7d103e8e7CustomMessage",
-          "triggerProvider": "Cognito"
-        }
-      ],
+      "dependsOn": [],
       "frontendAuthConfig": {
         "mfaConfiguration": "OFF",
         "mfaTypes": [
@@ -47,60 +37,11 @@
             "AppClientID"
           ],
           "category": "auth",
-          "resourceName": "geoappd103e8e7d103e8e7"
+          "resourceName": "geoapp2e33bd8c2e33bd8c"
         }
       ],
       "providerPlugin": "awscloudformation",
       "service": "Cognito-UserPool-Groups"
-    }
-  },
-  "function": {
-    "geoappd103e8e7d103e8e7CustomMessage": {
-      "build": true,
-      "providerPlugin": "awscloudformation",
-      "service": "Lambda"
-    }
-  },
-  "parameters": {
-    "AMPLIFY_function_geoappd103e8e7d103e8e7CustomMessage_EMAILMESSAGE": {
-      "usedBy": [
-        {
-          "category": "function",
-          "resourceName": "geoappd103e8e7d103e8e7CustomMessage"
-        }
-      ]
-    },
-    "AMPLIFY_function_geoappd103e8e7d103e8e7CustomMessage_EMAILSUBJECT": {
-      "usedBy": [
-        {
-          "category": "function",
-          "resourceName": "geoappd103e8e7d103e8e7CustomMessage"
-        }
-      ]
-    },
-    "AMPLIFY_function_geoappd103e8e7d103e8e7CustomMessage_REDIRECTURL": {
-      "usedBy": [
-        {
-          "category": "function",
-          "resourceName": "geoappd103e8e7d103e8e7CustomMessage"
-        }
-      ]
-    },
-    "AMPLIFY_function_geoappd103e8e7d103e8e7CustomMessage_deploymentBucketName": {
-      "usedBy": [
-        {
-          "category": "function",
-          "resourceName": "geoappd103e8e7d103e8e7CustomMessage"
-        }
-      ]
-    },
-    "AMPLIFY_function_geoappd103e8e7d103e8e7CustomMessage_s3Key": {
-      "usedBy": [
-        {
-          "category": "function",
-          "resourceName": "geoappd103e8e7d103e8e7CustomMessage"
-        }
-      ]
     }
   }
 }

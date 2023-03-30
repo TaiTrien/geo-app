@@ -1,8 +1,8 @@
 {
   "version": "1",
   "cognitoConfig": {
-    "resourceNameTruncated": "geoappd103e8e7",
-    "userPoolName": "geoappd103e8e7_userpool_d103e8e7",
+    "resourceNameTruncated": "geoapp2e33bd8c",
+    "userPoolName": "geoapp_staging",
     "autoVerifiedAttributes": [
       "email"
     ],
@@ -24,36 +24,50 @@
     ],
     "aliasAttributes": [],
     "userpoolClientGenerateSecret": false,
-    "userpoolClientRefreshTokenValidity": 30,
+    "userpoolClientRefreshTokenValidity": "30",
     "userpoolClientWriteAttributes": [
       "email"
     ],
     "userpoolClientReadAttributes": [
       "email"
     ],
-    "userpoolClientLambdaRole": "geoappd103e8e7_userpoolclient_lambda_role",
+    "userpoolClientLambdaRole": "geoapp2e33bd8c_userpoolclient_lambda_role",
     "userpoolClientSetAttributes": false,
-    "sharedId": "d103e8e7",
-    "resourceName": "geoappd103e8e7d103e8e7",
+    "sharedId": "2e33bd8c",
+    "resourceName": "geoapp2e33bd8c2e33bd8c",
     "authSelections": "userPoolOnly",
     "useDefault": "manual",
     "usernameAttributes": [
       "email"
     ],
-    "userPoolGroups": true,
+    "userPoolGroups": false,
     "adminQueries": false,
-    "triggers": {
-      "CustomMessage": [
-        "verification-link"
-      ]
-    },
+    "triggers": {},
     "hostedUI": false,
     "userPoolGroupList": [
-      "geoapp"
+      "userpool"
     ],
     "serviceName": "Cognito",
-    "verificationBucketName": "geoappd103e8e7d103e8e7verificationbucket",
     "usernameCaseSensitive": false,
-    "useEnabledMfas": true
+    "useEnabledMfas": true,
+    "authRoleArn": {
+      "Fn::GetAtt": [
+        "AuthRole",
+        "Arn"
+      ]
+    },
+    "unauthRoleArn": {
+      "Fn::GetAtt": [
+        "UnauthRole",
+        "Arn"
+      ]
+    },
+    "breakCircularDependency": true,
+    "dependsOn": [],
+    "authProviders": [],
+    "parentStack": {
+      "Ref": "AWS::StackId"
+    },
+    "permissions": []
   }
 }

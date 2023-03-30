@@ -1,30 +1,20 @@
 {
-  "staging": {
+  "dev": {
     "awscloudformation": {
-      "AuthRoleName": "amplify-geoapp-staging-164503-authRole",
-      "UnauthRoleArn": "arn:aws:iam::024865744036:role/amplify-geoapp-staging-164503-unauthRole",
-      "AuthRoleArn": "arn:aws:iam::024865744036:role/amplify-geoapp-staging-164503-authRole",
-      "Region": "us-east-2",
-      "DeploymentBucketName": "amplify-geoapp-staging-164503-deployment",
-      "UnauthRoleName": "amplify-geoapp-staging-164503-unauthRole",
-      "StackName": "amplify-geoapp-staging-164503",
-      "StackId": "arn:aws:cloudformation:us-east-2:024865744036:stack/amplify-geoapp-staging-164503/e3835ef0-cd87-11ed-bebb-066b95be6d95",
-      "AmplifyAppId": "d3epwbo8ta1k04",
-      "AuthTriggerTemplateURL": "https://s3.amazonaws.com/amplify-geoapp-staging-164503-deployment/amplify-cfn-templates/auth/auth-trigger-cloudformation-template.json"
+      "AuthRoleName": "amplify-geoapp-dev-00404-authRole",
+      "UnauthRoleArn": "arn:aws:iam::024865744036:role/amplify-geoapp-dev-00404-unauthRole",
+      "AuthRoleArn": "arn:aws:iam::024865744036:role/amplify-geoapp-dev-00404-authRole",
+      "Region": "ap-southeast-1",
+      "DeploymentBucketName": "amplify-geoapp-dev-00404-deployment",
+      "UnauthRoleName": "amplify-geoapp-dev-00404-unauthRole",
+      "StackName": "amplify-geoapp-dev-00404",
+      "StackId": "arn:aws:cloudformation:ap-southeast-1:024865744036:stack/amplify-geoapp-dev-00404/e3b77b40-cf1c-11ed-a85d-060c0b2de136",
+      "AmplifyAppId": "d1ray9hz4wtazw"
     },
     "categories": {
       "auth": {
-        "geoappd103e8e7d103e8e7": {},
+        "geoapp2e33bd8c2e33bd8c": {},
         "userPoolGroups": {}
-      },
-      "function": {
-        "geoappd103e8e7d103e8e7CustomMessage": {
-          "REDIRECTURL": "n",
-          "EMAILSUBJECT": "[Geo-app]Please confirm your email",
-          "EMAILMESSAGE": "Confirm by clicking this url",
-          "deploymentBucketName": "amplify-geoapp-staging-164503-deployment",
-          "s3Key": "amplify-builds/geoappd103e8e7d103e8e7CustomMessage-4c63537544614848624e-build.zip"
-        }
       }
     }
   }

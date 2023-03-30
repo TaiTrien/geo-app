@@ -6,6 +6,7 @@ import 'package:get/get.dart';
 import '../routes/app.pages.dart';
 import '../utils/device.utils.dart';
 import '../widgets/button.dart';
+import '../widgets/page_wrapper.dart';
 
 class Signup extends StatelessWidget {
   Signup({super.key});
@@ -13,7 +14,8 @@ class Signup extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return Scaffold(
+    return PageWrapper(
+      onBack: () => Get.back(),
       body: SafeArea(
         child: Container(
           padding: const EdgeInsetsDirectional.symmetric(horizontal: 15),

@@ -2,7 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_animator/widgets/fading_entrances/fade_in_up.dart';
 import 'package:geo_app/routes/app.pages.dart';
 import 'package:get/get.dart';
-import '../services/preferences.dart';
+import '../services/preferences.service.dart';
 
 class Splash extends StatefulWidget {
   const Splash({Key? key}) : super(key: key);

@@ -1,3 +1,4 @@
+import 'package:geo_app/pages/home.dart';
 import 'package:geo_app/pages/signin.dart';
 import 'package:geo_app/pages/signup.dart';
 import 'package:geo_app/pages/splash.dart';
@@ -22,6 +23,10 @@ class AppPages {
     GetPage(
       name: Routes.signup,
       page: () => Signup(),
+    ),
+    GetPage(
+      name: Routes.home,
+      page: () => Home(),
     ),
   ];
 }

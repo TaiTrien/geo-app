@@ -78,11 +78,7 @@ class Signin extends StatelessWidget {
               TextFormField(
                 controller: _passwordController,
                 obscureText: true,
-                validator: ValidationBuilder()
-                    .regExp(RegExps.password,
-                        "Password contains at least 1 uppercase letter, 1 uppercase letter and 1 number or special character!")
-                    .required('Please enter your password')
-                    .build(),
+                validator: ValidationBuilder().required().build(),
                 decoration: const InputDecoration(
                   hintText: 'Password',
                   prefixIcon: Icon(Icons.password),

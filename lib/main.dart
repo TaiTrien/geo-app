@@ -10,7 +10,7 @@ import 'package:geo_app/routes/app.pages.dart';
 import 'package:geo_app/themes/app.theme.dart';
 import 'package:get/get_navigation/src/root/get_material_app.dart';
 import 'package:get/get_navigation/src/routes/get_route.dart';
-import 'amplifyconfiguration.dart';
+import 'config/amplify.config.dart';
 import 'pages/splash.dart';
 
 void main() async {

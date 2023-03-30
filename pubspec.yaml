@@ -20,6 +20,7 @@ dependencies:
   flutter_animator: ^3.2.2
   shared_preferences: ^2.0.20
   form_validator: ^2.1.1
+  geolocator: ^9.0.2
 
 dev_dependencies:
   flutter_test:

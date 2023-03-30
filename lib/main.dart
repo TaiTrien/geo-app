@@ -1,3 +1,5 @@
+import 'dart:ui';
+
 import 'package:flutter/material.dart';
 import 'package:flutter_config/flutter_config.dart';
 import 'package:geo_app/routes/app.pages.dart';
@@ -9,6 +11,7 @@ import 'pages/splash.dart';
 
 void main() async {
   WidgetsFlutterBinding.ensureInitialized();
+  DartPluginRegistrant.ensureInitialized();
   await FlutterConfig.loadEnvVariables();
   runApp(const MyApp());
 }

@@ -1,8 +1,8 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_animator/widgets/fading_entrances/fade_in_up.dart';
+import 'package:geo_app/modules/auth/auth.controller.dart';
 import 'package:geo_app/routes/app.pages.dart';
 import 'package:get/get.dart';
-import '../services/preferences.service.dart';
 
 class Splash extends StatefulWidget {
   const Splash({Key? key}) : super(key: key);
@@ -12,6 +12,7 @@ class Splash extends StatefulWidget {
 }
 
 class SplashState extends State<Splash> with SingleTickerProviderStateMixin {
+  final AuthController _authController = Get.find();
   @override
   void initState() {
     super.initState();
@@ -20,9 +21,9 @@ class SplashState extends State<Splash> with SingleTickerProviderStateMixin {
   @override
   void didChangeDependencies() {
     super.didChangeDependencies();
-    Future.delayed(const Duration(milliseconds: 2600), () async {
-      if (await Preferences.getToken() != null) {
-        return Get.offAndToNamed(Routes.home);
+    Future.delayed(const Duration(milliseconds: 2600), () {
+      if (_authController.isSignedIn) {
+        Get.offAndToNamed(Routes.home);
       } else {
         Get.offAndToNamed(Routes.welcome);
       }

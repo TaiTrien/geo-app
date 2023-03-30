@@ -4,9 +4,24 @@ import 'package:get/get.dart';
 
 class AuthController extends GetxController {
   final RxBool _processing = false.obs;
+  final RxBool _isSignedIn = false.obs;
 
   set processing(value) => _processing.value = value;
   get processing => _processing.value;
+
+  set isSignedIn(value) => _isSignedIn.value = value;
+  get isSignedIn => _isSignedIn.value;
+
+  @override
+  void onInit() async {
+    super.onInit();
+    await checkSignedIn();
+  }
+
+  Future<void> checkSignedIn() async {
+    final AuthSession authSession = await Amplify.Auth.fetchAuthSession();
+    isSignedIn = authSession.isSignedIn;
+  }
 
   Future<bool> signup(String firstName, String lastName, String email, String password) async {
     try {
@@ -34,12 +49,16 @@ class AuthController extends GetxController {
   Future<bool> signin(String email, String password) async {
     try {
       processing = true;
+      await Amplify.Auth.signOut();
       final SignInResult result = await Amplify.Auth.signIn(
         username: email,
         password: password,
       );
       processing = false;
-      if (result.isSignedIn) return true;
+      if (result.isSignedIn) {
+        isSignedIn = true;
+        return true;
+      }
       return false;
     } on AuthException catch (e) {
       safePrint(e.message);

@@ -118,7 +118,7 @@ class Signup extends StatelessWidget {
                           bool isSignupCompleted = await _authController.signup(firstName, lastName, email, password);
                           if (isSignupCompleted) {
                             ToastUtils.showSuccess("Please verify your email then login!");
-                            Get.toNamed(Routes.signin);
+                            Get.offAndToNamed(Routes.signin);
                           } else {
                             ToastUtils.showError("Signup failed!");
                           }

@@ -43,7 +43,7 @@ class Welcome extends StatelessWidget {
                     backgroundColor: Theme.of(context).colorScheme.surface,
                   ),
                   TextButton(
-                    onPressed: () {},
+                    onPressed: () => Get.toNamed(Routes.signup),
                     child: Text(
                       'Create an account',
                       style: Theme.of(context).textTheme.labelMedium?.copyWith(color: AppColors.white),

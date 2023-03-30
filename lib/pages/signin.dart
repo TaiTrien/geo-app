@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:form_validator/form_validator.dart';
 import 'package:geo_app/modules/auth/auth.controller.dart';
+import 'package:geo_app/utils/toast.utils.dart';
 import 'package:geo_app/widgets/button.dart';
 import 'package:geo_app/widgets/page_wrapper.dart';
 import 'package:get/get.dart';
@@ -97,8 +98,13 @@ class Signin extends StatelessWidget {
                       if (_formKey.currentState!.validate()) {
                         String email = _emailController.text.trim();
                         String password = _passwordController.text.trim();
-                        bool result = await _authController.signin(email, password);
-                        if (result) Get.offAndToNamed(Routes.home);
+                        try {
+                          bool result = await _authController.signin(email, password);
+                          if (result) return Get.offAndToNamed(Routes.home);
+                          ToastUtils.showError("Sign in failed");
+                        } catch (e) {
+                          ToastUtils.showError(e.toString());
+                        }
                       }
                     }),
               ),

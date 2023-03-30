@@ -1,10 +1,8 @@
 {
   "version": "1",
   "cognitoConfig": {
-    "identityPoolName": "geoapp8f38ddaa_identitypool_8f38ddaa",
-    "allowUnauthenticatedIdentities": false,
-    "resourceNameTruncated": "geoapp8f38ddaa",
-    "userPoolName": "geoapp8f38ddaa_userpool_8f38ddaa",
+    "resourceNameTruncated": "geoappd103e8e7",
+    "userPoolName": "geoappd103e8e7_userpool_d103e8e7",
     "autoVerifiedAttributes": [
       "email"
     ],
@@ -20,7 +18,9 @@
     "passwordPolicyMinLength": 8,
     "passwordPolicyCharacters": [],
     "requiredAttributes": [
-      "email"
+      "email",
+      "family_name",
+      "name"
     ],
     "aliasAttributes": [],
     "userpoolClientGenerateSecret": false,
@@ -31,17 +31,28 @@
     "userpoolClientReadAttributes": [
       "email"
     ],
-    "userpoolClientLambdaRole": "geoapp8f38ddaa_userpoolclient_lambda_role",
+    "userpoolClientLambdaRole": "geoappd103e8e7_userpoolclient_lambda_role",
     "userpoolClientSetAttributes": false,
-    "sharedId": "8f38ddaa",
-    "resourceName": "geoapp8f38ddaa",
-    "authSelections": "identityPoolAndUserPool",
-    "useDefault": "default",
+    "sharedId": "d103e8e7",
+    "resourceName": "geoappd103e8e7d103e8e7",
+    "authSelections": "userPoolOnly",
+    "useDefault": "manual",
     "usernameAttributes": [
       "email"
     ],
-    "userPoolGroupList": [],
+    "userPoolGroups": true,
+    "adminQueries": false,
+    "triggers": {
+      "CustomMessage": [
+        "verification-link"
+      ]
+    },
+    "hostedUI": false,
+    "userPoolGroupList": [
+      "geoapp"
+    ],
     "serviceName": "Cognito",
+    "verificationBucketName": "geoappd103e8e7d103e8e7verificationbucket",
     "usernameCaseSensitive": false,
     "useEnabledMfas": true
   }

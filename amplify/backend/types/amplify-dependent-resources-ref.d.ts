@@ -1,13 +1,20 @@
 export type AmplifyDependentResourcesAttributes = {
   "auth": {
-    "geoapp8f38ddaa": {
+    "geoappd103e8e7d103e8e7": {
       "AppClientID": "string",
       "AppClientIDWeb": "string",
-      "IdentityPoolId": "string",
-      "IdentityPoolName": "string",
       "UserPoolArn": "string",
       "UserPoolId": "string",
       "UserPoolName": "string"
+    }
+  },
+  "function": {
+    "geoappd103e8e7d103e8e7CustomMessage": {
+      "Arn": "string",
+      "LambdaExecutionRole": "string",
+      "LambdaExecutionRoleArn": "string",
+      "Name": "string",
+      "Region": "string"
     }
   }
 }

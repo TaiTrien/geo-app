@@ -1,0 +1,16 @@
+{
+  "trigger": true,
+  "modules": [
+    "verification-link"
+  ],
+  "parentResource": "geoappd103e8e7d103e8e7",
+  "functionName": "geoappd103e8e7d103e8e7CustomMessage",
+  "resourceName": "geoappd103e8e7d103e8e7CustomMessage",
+  "parentStack": "auth",
+  "triggerEnvs": "[\n  {\n    \"key\": \"RESOURCENAME\",\n    \"value\": \"resourceName\"\n  }\n]",
+  "triggerDir": "/snapshot/repo/build/node_modules/@aws-amplify/amplify-category-auth/provider-utils/awscloudformation/triggers/CustomMessage",
+  "triggerTemplate": "CustomMessage.json.ejs",
+  "triggerEventPath": "CustomMessage.event.json",
+  "roleName": "geoappd103e8e7d103e8e7CustomMessage",
+  "skipEdit": true
+}

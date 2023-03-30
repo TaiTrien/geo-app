@@ -1,8 +1,18 @@
 {
   "auth": {
-    "geoapp8f38ddaa": {
+    "geoappd103e8e7d103e8e7": {
       "customAuth": false,
-      "dependsOn": [],
+      "dependsOn": [
+        {
+          "attributes": [
+            "Arn",
+            "Name"
+          ],
+          "category": "function",
+          "resourceName": "geoappd103e8e7d103e8e7CustomMessage",
+          "triggerProvider": "Cognito"
+        }
+      ],
       "frontendAuthConfig": {
         "mfaConfiguration": "OFF",
         "mfaTypes": [
@@ -13,7 +23,9 @@
           "passwordPolicyMinLength": 8
         },
         "signupAttributes": [
-          "EMAIL"
+          "EMAIL",
+          "FAMILY_NAME",
+          "NAME"
         ],
         "socialProviders": [],
         "usernameAttributes": [
@@ -25,6 +37,70 @@
       },
       "providerPlugin": "awscloudformation",
       "service": "Cognito"
+    },
+    "userPoolGroups": {
+      "dependsOn": [
+        {
+          "attributes": [
+            "UserPoolId",
+            "AppClientIDWeb",
+            "AppClientID"
+          ],
+          "category": "auth",
+          "resourceName": "geoappd103e8e7d103e8e7"
+        }
+      ],
+      "providerPlugin": "awscloudformation",
+      "service": "Cognito-UserPool-Groups"
+    }
+  },
+  "function": {
+    "geoappd103e8e7d103e8e7CustomMessage": {
+      "build": true,
+      "providerPlugin": "awscloudformation",
+      "service": "Lambda"
+    }
+  },
+  "parameters": {
+    "AMPLIFY_function_geoappd103e8e7d103e8e7CustomMessage_EMAILMESSAGE": {
+      "usedBy": [
+        {
+          "category": "function",
+          "resourceName": "geoappd103e8e7d103e8e7CustomMessage"
+        }
+      ]
+    },
+    "AMPLIFY_function_geoappd103e8e7d103e8e7CustomMessage_EMAILSUBJECT": {
+      "usedBy": [
+        {
+          "category": "function",
+          "resourceName": "geoappd103e8e7d103e8e7CustomMessage"
+        }
+      ]
+    },
+    "AMPLIFY_function_geoappd103e8e7d103e8e7CustomMessage_REDIRECTURL": {
+      "usedBy": [
+        {
+          "category": "function",
+          "resourceName": "geoappd103e8e7d103e8e7CustomMessage"
+        }
+      ]
+    },
+    "AMPLIFY_function_geoappd103e8e7d103e8e7CustomMessage_deploymentBucketName": {
+      "usedBy": [
+        {
+          "category": "function",
+          "resourceName": "geoappd103e8e7d103e8e7CustomMessage"
+        }
+      ]
+    },
+    "AMPLIFY_function_geoappd103e8e7d103e8e7CustomMessage_s3Key": {
+      "usedBy": [
+        {
+          "category": "function",
+          "resourceName": "geoappd103e8e7d103e8e7CustomMessage"
+        }
+      ]
     }
   }
 }

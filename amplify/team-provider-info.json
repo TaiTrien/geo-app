@@ -1,19 +1,30 @@
 {
-  "dev": {
+  "staging": {
     "awscloudformation": {
-      "AuthRoleName": "amplify-geoapp-dev-14035-authRole",
-      "UnauthRoleArn": "arn:aws:iam::024865744036:role/amplify-geoapp-dev-14035-unauthRole",
-      "AuthRoleArn": "arn:aws:iam::024865744036:role/amplify-geoapp-dev-14035-authRole",
+      "AuthRoleName": "amplify-geoapp-staging-164503-authRole",
+      "UnauthRoleArn": "arn:aws:iam::024865744036:role/amplify-geoapp-staging-164503-unauthRole",
+      "AuthRoleArn": "arn:aws:iam::024865744036:role/amplify-geoapp-staging-164503-authRole",
       "Region": "us-east-2",
-      "DeploymentBucketName": "amplify-geoapp-dev-14035-deployment",
-      "UnauthRoleName": "amplify-geoapp-dev-14035-unauthRole",
-      "StackName": "amplify-geoapp-dev-14035",
-      "StackId": "arn:aws:cloudformation:us-east-2:024865744036:stack/amplify-geoapp-dev-14035/09bb0d10-cd98-11ed-b71b-06459762b5bc",
-      "AmplifyAppId": "d1aedkt3q9v19t"
+      "DeploymentBucketName": "amplify-geoapp-staging-164503-deployment",
+      "UnauthRoleName": "amplify-geoapp-staging-164503-unauthRole",
+      "StackName": "amplify-geoapp-staging-164503",
+      "StackId": "arn:aws:cloudformation:us-east-2:024865744036:stack/amplify-geoapp-staging-164503/e3835ef0-cd87-11ed-bebb-066b95be6d95",
+      "AmplifyAppId": "d3epwbo8ta1k04",
+      "AuthTriggerTemplateURL": "https://s3.amazonaws.com/amplify-geoapp-staging-164503-deployment/amplify-cfn-templates/auth/auth-trigger-cloudformation-template.json"
     },
     "categories": {
       "auth": {
-        "geoapp8f38ddaa": {}
+        "geoappd103e8e7d103e8e7": {},
+        "userPoolGroups": {}
+      },
+      "function": {
+        "geoappd103e8e7d103e8e7CustomMessage": {
+          "REDIRECTURL": "n",
+          "EMAILSUBJECT": "[Geo-app]Please confirm your email",
+          "EMAILMESSAGE": "Confirm by clicking this url",
+          "deploymentBucketName": "amplify-geoapp-staging-164503-deployment",
+          "s3Key": "amplify-builds/geoappd103e8e7d103e8e7CustomMessage-4c63537544614848624e-build.zip"
+        }
       }
     }
   }

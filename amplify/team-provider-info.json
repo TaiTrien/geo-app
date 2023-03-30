@@ -10,6 +10,11 @@
       "StackName": "amplify-geoapp-dev-14035",
       "StackId": "arn:aws:cloudformation:us-east-2:024865744036:stack/amplify-geoapp-dev-14035/09bb0d10-cd98-11ed-b71b-06459762b5bc",
       "AmplifyAppId": "d1aedkt3q9v19t"
+    },
+    "categories": {
+      "auth": {
+        "geoapp8f38ddaa": {}
+      }
     }
   }
 }

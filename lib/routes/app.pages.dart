@@ -1,3 +1,4 @@
+import 'package:geo_app/modules/auth/auth.binding.dart';
 import 'package:geo_app/pages/home.dart';
 import 'package:geo_app/pages/signin.dart';
 import 'package:geo_app/pages/signup.dart';
@@ -19,14 +20,16 @@ class AppPages {
     GetPage(
       name: Routes.signin,
       page: () => Signin(),
+      binding: AuthBinding(),
     ),
     GetPage(
       name: Routes.signup,
       page: () => Signup(),
+      binding: AuthBinding(),
     ),
     GetPage(
       name: Routes.home,
-      page: () => Home(),
+      page: () => const Home(),
     ),
   ];
 }

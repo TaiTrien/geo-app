@@ -5,6 +5,7 @@ class AppColors {
   static const secondary = Color(0xFF0F2542);
   static const disabled = Color(0xFFC4C4C4);
   static const err = Color(0xFFEF5350);
+  static const success = Color(0xFF53A653);
   static const transparent = Colors.transparent;
   static const white = Colors.white;
   static const black = Colors.black;

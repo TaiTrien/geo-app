@@ -1,14 +1,16 @@
 import 'package:flutter/material.dart';
+import 'package:geo_app/widgets/loading.dart';
 
 class PageWrapper extends StatelessWidget {
   final Widget body;
   final Function? onBack;
-  const PageWrapper({super.key, required this.body, this.onBack});
+  final bool? loading;
+  const PageWrapper({super.key, required this.body, this.onBack, this.loading});
 
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      appBar: onBack != null
+      appBar: (onBack != null && loading != true)
           ? AppBar(
               backgroundColor: Theme.of(context).colorScheme.background,
               elevation: 0,
@@ -19,10 +21,12 @@ class PageWrapper extends StatelessWidget {
             )
           : null,
       body: SafeArea(
-        child: Padding(
-          padding: const EdgeInsets.only(top: 20),
-          child: body,
-        ),
+        child: loading == true
+            ? const Loading()
+            : Padding(
+                padding: const EdgeInsets.only(top: 20),
+                child: body,
+              ),
       ),
     );
   }

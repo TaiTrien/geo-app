@@ -1,7 +1,10 @@
 export 'geo_hub_tile_distance.model.dart';
 export 'geometry.model.dart';
 export 'hub.model.dart';
+export 'hub.models.dart';
 export 'nearest_point_distance.model.dart';
 export 'poi.model.dart';
 export 'priority.model.dart';
 export 'properties.model.dart';
+export 'route.model.dart';
+export 'route_element.model.dart';

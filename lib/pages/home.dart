@@ -25,7 +25,7 @@ class HomeState extends State<Home> {
   final HubController _hubController = Get.find();
   final LatLng _customerLocation = LatLng(-37.87502821530717, 145.16437548160567);
   LatLng _currentLocation = LatLng(0, 0);
-  static const double _markerSize = 50;
+  static const double _markerSize = 30;
   final String mapUrlTemplate =
       "https://api.mapbox.com/styles/v1/neirt/${FlutterConfig.get('MAPBOX_TEMPLATE_ID')}/tiles/256/{z}/{x}/{y}@2x?access_token=${FlutterConfig.get('MAPBOX_SK')}";
 
@@ -83,7 +83,10 @@ class HomeState extends State<Home> {
                 point: _customerLocation,
                 width: _markerSize,
                 height: _markerSize,
-                builder: (context) => const FlutterLogo(),
+                builder: (context) => const Icon(
+                  Icons.location_on,
+                  size: _markerSize,
+                ),
               ),
             ],
           ),

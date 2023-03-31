@@ -22,24 +22,27 @@ class Home extends StatefulWidget {
 class HomeState extends State<Home> {
   final MapController _mapController = MapController();
   final HubController _hubController = Get.find();
-  final LatLng _customerAddress = LatLng(-37.87502821530717, 145.16437548160567);
+  final LatLng _customerLocation = LatLng(-37.87502821530717, 145.16437548160567);
+  LatLng _currentLocation = LatLng(0, 0);
+  static const double _markerSize = 50;
   final String mapUrlTemplate =
       "https://api.mapbox.com/styles/v1/neirt/${FlutterConfig.get('MAPBOX_TEMPLATE_ID')}/tiles/256/{z}/{x}/{y}@2x?access_token=${FlutterConfig.get('MAPBOX_SK')}";
 
   @override
   void initState() {
     super.initState();
+    navigateToCurrentLocation();
   }
-
-  // void _onMapCreated(MapboxMapController controller) {
-  //   mapController = controller;
-  //   navigateToCurrentLocation();
-  // }
 
   void navigateToCurrentLocation() {
     LocationServices.getCurrentLocation()
         .then(
           (value) => {
+            setState(
+              () {
+                _currentLocation = LatLng(value.latitude, value.longitude);
+              },
+            ),
             _mapController.move(
               LatLng(value.latitude, value.longitude),
               17,
@@ -48,26 +51,6 @@ class HomeState extends State<Home> {
         )
         .onError((error, stackTrace) => ToastUtils.showError(error.toString()));
   }
-
-  // void loadCustomerAddress(MapboxMapController controller) {
-  //   controller.addSymbol(const SymbolOptions(geometry: _customerAddress, iconImage: "airport-15"));
-  // }
-
-  // void _onStyleLoaded(MapboxMapController controller) async {
-  //   loadCustomerAddress(controller);
-  //   await initPickAreas(controller);
-  //   await test(controller);
-  // }
-
-  // Future<void> initPickAreas(MapboxMapController controller) async {
-  //   final fills = _hubController.getHubTileForFill();
-  //   await controller.addGeoJsonSource("fills", fills);
-  //   await controller.addLineLayer(
-  //     "fills",
-  //     "lines",
-  //     LineLayerProperties(lineColor: Colors.red.toHexStringRGB(), lineWidth: 4),
-  //   );
-  // }
 
   @override
   Widget build(BuildContext context) {
@@ -83,17 +66,41 @@ class HomeState extends State<Home> {
             urlTemplate: mapUrlTemplate,
             userAgentPackageName: 'demo.geo-app',
           ),
+          MarkerLayer(
+            markers: [
+              Marker(
+                point: _currentLocation,
+                width: _markerSize,
+                height: _markerSize,
+                builder: (context) => const Icon(
+                  Icons.location_history,
+                  size: _markerSize,
+                ),
+              ),
+            ],
+          ),
+          MarkerLayer(
+            markers: [
+              Marker(
+                point: _customerLocation,
+                width: _markerSize,
+                height: _markerSize,
+                builder: (context) => const FlutterLogo(),
+              ),
+            ],
+          ),
           PolygonLayer(
-              polygons: _hubController.pickupAreas.keys
-                  .map(
-                    (e) => Polygon(
-                      points: _hubController.pickupAreas[e] as List<LatLng>,
-                      isFilled: false, // By default it's false
-                      borderColor: Colors.red,
-                      borderStrokeWidth: 4,
-                    ),
-                  )
-                  .toList()),
+            polygons: _hubController.pickupAreas.keys
+                .map(
+                  (e) => Polygon(
+                    points: _hubController.pickupAreas[e] as List<LatLng>,
+                    isFilled: false, // By default it's false
+                    borderColor: Colors.red,
+                    borderStrokeWidth: 4,
+                  ),
+                )
+                .toList(),
+          ),
         ],
       ),
       floatingActionButton: FloatingActionButton(

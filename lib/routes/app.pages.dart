@@ -31,7 +31,7 @@ class AppPages {
     ),
     GetPage(
       name: Routes.home,
-      page: () => const Home(),
+      page: () => Home(),
       bindings: [
         HubBinding(),
       ],

@@ -5,7 +5,7 @@ class PageWrapper extends StatelessWidget {
   final Widget body;
   final Function? onBack;
   final bool? loading;
-  final FloatingActionButton? fab;
+  final Widget? fab;
   final bool hasAppBar;
   final String? title;
   const PageWrapper({

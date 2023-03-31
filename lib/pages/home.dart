@@ -9,6 +9,7 @@ import 'package:geo_app/modules/hub/hub.controller.dart';
 import 'package:geo_app/modules/hub/hub.repo.dart';
 import 'package:geo_app/services/location.service.dart';
 import 'package:geo_app/utils/toast.utils.dart';
+import 'package:geo_app/widgets/eta.dart';
 import 'package:geo_app/widgets/page_wrapper.dart';
 import 'package:get/get.dart';
 import 'package:flutter_map/flutter_map.dart';
@@ -56,53 +57,67 @@ class HomeState extends State<Home> {
     return PageWrapper(
       hasAppBar: true,
       title: "Geo map",
-      body: FlutterMap(
-        mapController: _mapController,
-        options: MapOptions(
-          zoom: 17,
-          onMapReady: () => _initLocations(),
-        ),
+      body: Stack(
         children: [
-          TileLayer(
-            urlTemplate: mapUrlTemplate,
-            userAgentPackageName: 'demo.geo-app',
-          ),
-          MarkerLayer(
-            markers: [
-              Marker(
-                point: _currentLocation,
-                width: _markerSize,
-                height: _markerSize,
-                builder: (context) => const Icon(Icons.location_history, size: _markerSize),
+          FlutterMap(
+            mapController: _mapController,
+            options: MapOptions(
+              zoom: 17,
+              onMapReady: () => _initLocations(),
+            ),
+            children: [
+              TileLayer(
+                urlTemplate: mapUrlTemplate,
+                userAgentPackageName: 'demo.geo-app',
               ),
-            ],
-          ),
-          MarkerLayer(
-            markers: [
-              Marker(
-                point: _customerLocation,
-                width: _markerSize,
-                height: _markerSize,
-                builder: (context) => const Icon(Icons.location_on, size: _markerSize),
-              ),
-            ],
-          ),
-          Obx(() => PolylineLayer(
-                polylineCulling: false,
-                polylines: _hubController.getPolylines(),
-              )),
-          PolygonLayer(
-            polygons: _hubController.pickupAreas.keys
-                .map(
-                  (e) => Polygon(
-                    points: _hubController.pickupAreas[e] as List<LatLng>,
-                    isFilled: false, // By default it's false
-                    borderColor: Colors.red,
-                    borderStrokeWidth: 4,
+              MarkerLayer(
+                markers: [
+                  Marker(
+                    point: _currentLocation,
+                    width: _markerSize,
+                    height: _markerSize,
+                    builder: (context) => const Icon(Icons.location_history, size: _markerSize),
                   ),
-                )
-                .toList(),
+                ],
+              ),
+              MarkerLayer(
+                markers: [
+                  Marker(
+                    point: _customerLocation,
+                    width: _markerSize,
+                    height: _markerSize,
+                    builder: (context) => const Icon(Icons.location_on, size: _markerSize),
+                  ),
+                ],
+              ),
+              Obx(() => PolylineLayer(
+                    polylineCulling: false,
+                    polylines: _hubController.getPolylines(),
+                  )),
+              PolygonLayer(
+                polygons: _hubController.pickupAreas.keys
+                    .map(
+                      (e) => Polygon(
+                        points: _hubController.pickupAreas[e] as List<LatLng>,
+                        isFilled: false, // By default it's false
+                        borderColor: Colors.red,
+                        borderStrokeWidth: 4,
+                      ),
+                    )
+                    .toList(),
+              ),
+            ],
           ),
+          Positioned(
+            bottom: 80,
+            right: 20,
+            left: 20,
+            child: ETA(
+              timeSpentInSec: _hubController.toCustomerRoutes.routes[0].duration,
+              distanceInMeter: _hubController.toCustomerRoutes.routes[0].distance,
+              locationName: "Customer location",
+            ),
+          )
         ],
       ),
       fab: FloatingActionButton(

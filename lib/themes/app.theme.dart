@@ -40,6 +40,7 @@ class AppTheme {
         textTheme: const TextTheme(
           labelMedium: TextStyle(fontSize: 16, fontWeight: FontWeight.w600),
           displayLarge: TextStyle(fontSize: 32, fontWeight: FontWeight.w800),
+          displayMedium: TextStyle(fontSize: 16, fontWeight: FontWeight.w400),
           headlineLarge: TextStyle(fontSize: 30, fontWeight: FontWeight.w700, color: AppColors.primary),
           headlineSmall: TextStyle(fontSize: 18, fontWeight: FontWeight.w200, color: AppColors.grey),
         ),

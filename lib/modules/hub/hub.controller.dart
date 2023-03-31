@@ -27,7 +27,7 @@ class HubController extends GetxController {
     }
   }
 
-  Map<String, dynamic> getFills() {
+  Map<String, dynamic> getHubTileForFill() {
     Map<String, dynamic> fills = {
       "type": "FeatureCollection",
       "features": [],

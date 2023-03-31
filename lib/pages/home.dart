@@ -3,15 +3,11 @@ import 'dart:ffi';
 import 'dart:io';
 import 'dart:math';
 
-import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
-import 'package:flutter/services.dart';
 import 'package:flutter_config/flutter_config.dart';
 import 'package:geo_app/modules/hub/hub.controller.dart';
 import 'package:geo_app/services/location.service.dart';
 import 'package:geo_app/utils/toast.utils.dart';
-import 'package:geo_app/variants/variants.dart';
-import 'package:geojson/geojson.dart';
 import 'package:get/get.dart';
 import 'package:mapbox_gl/mapbox_gl.dart';
 
@@ -41,7 +37,7 @@ class HomeState extends State<Home> {
     LocationServices.getCurrentLocation()
         .then((value) => {
               mapController?.animateCamera(
-                CameraUpdate.newLatLngZoom(LatLng(-37.874157, 145.164177), 15),
+                CameraUpdate.newLatLngZoom(LatLng(value.latitude, value.longitude), 15),
               )
             })
         .onError((error, stackTrace) => ToastUtils.showError(error.toString()));
@@ -53,7 +49,9 @@ class HomeState extends State<Home> {
 
   void _onStyleLoaded(MapboxMapController controller) async {
     loadCustomerAddress(controller);
-    await controller.addGeoJsonSource("fills", _hubController.getFills());
+    final fills = _hubController.getHubTileForFill();
+
+    await controller.addGeoJsonSource("fills", fills);
 
     await controller.addLineLayer(
       "fills",
@@ -83,53 +81,3 @@ class HomeState extends State<Home> {
     );
   }
 }
-
-const _points = {
-  "type": "FeatureCollection",
-  "features": [
-    {
-      "type": "Feature",
-      "id": 2,
-      "properties": {
-        "type": "restaurant",
-      },
-      "geometry": {
-        "type": "Point",
-        "coordinates": [-37.883761, 145.054682]
-      }
-    },
-    {
-      "type": "Feature",
-      "id": 3,
-      "properties": {
-        "type": "airport",
-      },
-      "geometry": {
-        "type": "Point",
-        "coordinates": [151.215730044667879, -33.874616048776858]
-      }
-    },
-    {
-      "type": "Feature",
-      "id": 4,
-      "properties": {
-        "type": "bakery",
-      },
-      "geometry": {
-        "type": "Point",
-        "coordinates": [151.228803547973598, -33.892188026142584]
-      }
-    },
-    {
-      "type": "Feature",
-      "id": 5,
-      "properties": {
-        "type": "college",
-      },
-      "geometry": {
-        "type": "Point",
-        "coordinates": [151.186470299174118, -33.902781145804774]
-      }
-    }
-  ]
-};

@@ -2,9 +2,9 @@ import 'dart:convert';
 import 'package:geo_app/modules/hub/priority.model.dart';
 import 'geo_hub_tile_distance.model.dart';
 
-List<Hub> hubFromJson(String str) => List<Hub>.from(json.decode(str).map((x) => Hub.fromJson(x)));
+List<Hub> hubsFromStringJson(String str) => List<Hub>.from(json.decode(str).map((x) => Hub.fromJson(x)));
 
-String hubToJson(List<Hub> data) => json.encode(List<dynamic>.from(data.map((x) => x.toJson())));
+String hubsToJson(List<Hub> data) => json.encode(List<dynamic>.from(data.map((x) => x.toJson())));
 
 class Hub {
   Hub({

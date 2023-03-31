@@ -13,7 +13,10 @@ class AppPages {
     GetPage(
       name: Routes.splash,
       page: () => const Splash(),
-      binding: AuthBinding(),
+      bindings: [
+        AuthBinding(),
+        HubBinding(),
+      ],
     ),
     GetPage(
       name: Routes.welcome,

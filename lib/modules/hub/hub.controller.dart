@@ -21,8 +21,8 @@ class HubController extends GetxController {
   void loadHubsFromFile() async {
     try {
       final String response = await rootBundle.loadString('assets/data/data.json');
-      List<Hub> _hubs = hubsFromStringJson(response);
-      hubs = _hubs;
+      List<Hub> jsonHubs = hubsFromStringJson(response);
+      hubs = jsonHubs;
     } catch (e) {
       ToastUtils.showError(e.toString());
     }

@@ -6,6 +6,7 @@ import 'dart:math';
 import 'package:flutter/material.dart';
 import 'package:flutter_config/flutter_config.dart';
 import 'package:geo_app/modules/hub/hub.controller.dart';
+import 'package:geo_app/modules/hub/hub.repo.dart';
 import 'package:geo_app/services/location.service.dart';
 import 'package:geo_app/utils/toast.utils.dart';
 import 'package:get/get.dart';
@@ -31,25 +32,22 @@ class HomeState extends State<Home> {
   @override
   void initState() {
     super.initState();
-    navigateToCurrentLocation();
+    _initLocations();
   }
 
-  void navigateToCurrentLocation() {
-    LocationServices.getCurrentLocation()
-        .then(
-          (value) => {
-            setState(
-              () {
-                _currentLocation = LatLng(value.latitude, value.longitude);
-              },
-            ),
-            _mapController.move(
-              LatLng(value.latitude, value.longitude),
-              17,
-            ),
-          },
-        )
-        .onError((error, stackTrace) => ToastUtils.showError(error.toString()));
+  void _initLocations() {
+    LocationServices.getCurrentLocation().then(
+      (value) {
+        LatLng current = LatLng(value.latitude, value.longitude);
+        setState(() => _currentLocation = current);
+        _hubController.getRoutesToCustomer(current, _customerLocation);
+        _moveLocation(current);
+      },
+    ).onError((error, stackTrace) => ToastUtils.showError(error.toString()));
+  }
+
+  void _moveLocation(LatLng location) {
+    _mapController.move(LatLng(location.latitude, location.longitude), 17);
   }
 
   @override
@@ -59,7 +57,7 @@ class HomeState extends State<Home> {
         mapController: _mapController,
         options: MapOptions(
           zoom: 17,
-          onMapReady: () => navigateToCurrentLocation(),
+          onMapReady: () => _initLocations(),
         ),
         children: [
           TileLayer(
@@ -89,6 +87,10 @@ class HomeState extends State<Home> {
               ),
             ],
           ),
+          Obx(() => PolylineLayer(
+                polylineCulling: false,
+                polylines: _hubController.getPolylines(),
+              )),
           PolygonLayer(
             polygons: _hubController.pickupAreas.keys
                 .map(
@@ -105,7 +107,7 @@ class HomeState extends State<Home> {
       ),
       floatingActionButton: FloatingActionButton(
         backgroundColor: Theme.of(context).colorScheme.primary,
-        onPressed: navigateToCurrentLocation,
+        onPressed: () => _moveLocation(_currentLocation),
         child: const Icon(Icons.location_searching),
       ),
     );

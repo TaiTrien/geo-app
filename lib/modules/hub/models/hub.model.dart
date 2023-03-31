@@ -1,6 +1,6 @@
 import 'dart:convert';
-import 'package:geo_app/modules/hub/priority.model.dart';
 import 'geo_hub_tile_distance.model.dart';
+import 'hub.models.dart';
 
 List<Hub> hubsFromStringJson(String str) => List<Hub>.from(json.decode(str).map((x) => Hub.fromJson(x)));
 

@@ -1,5 +1,4 @@
-import 'package:geo_app/modules/hub/properties.model.dart';
-
+import 'hub.models.dart';
 import 'geometry.model.dart';
 
 class Poi {

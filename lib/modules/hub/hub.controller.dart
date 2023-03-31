@@ -1,10 +1,11 @@
 import 'dart:convert';
 
 import 'package:flutter/services.dart';
-import 'package:geo_app/modules/hub/hub.model.dart';
 import 'package:geo_app/utils/toast.utils.dart';
 import 'package:get/get.dart';
 import 'package:latlong2/latlong.dart';
+
+import 'models/hub.models.dart';
 
 class HubController extends GetxController {
   final RxList<Hub> _hubs = <Hub>[].obs;

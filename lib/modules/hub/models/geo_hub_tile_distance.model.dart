@@ -1,5 +1,4 @@
-import 'package:geo_app/modules/hub/poi.model.dart';
-
+import 'hub.models.dart';
 import 'nearest_point_distance.model.dart';
 
 class GeoHubTileDistance {

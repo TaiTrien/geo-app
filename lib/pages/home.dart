@@ -9,6 +9,7 @@ import 'package:geo_app/modules/hub/hub.controller.dart';
 import 'package:geo_app/modules/hub/hub.repo.dart';
 import 'package:geo_app/services/location.service.dart';
 import 'package:geo_app/utils/toast.utils.dart';
+import 'package:geo_app/widgets/page_wrapper.dart';
 import 'package:get/get.dart';
 import 'package:flutter_map/flutter_map.dart';
 import 'package:latlong2/latlong.dart';
@@ -52,7 +53,9 @@ class HomeState extends State<Home> {
 
   @override
   Widget build(BuildContext context) {
-    return Scaffold(
+    return PageWrapper(
+      hasAppBar: true,
+      title: "Geo map",
       body: FlutterMap(
         mapController: _mapController,
         options: MapOptions(
@@ -70,10 +73,7 @@ class HomeState extends State<Home> {
                 point: _currentLocation,
                 width: _markerSize,
                 height: _markerSize,
-                builder: (context) => const Icon(
-                  Icons.location_history,
-                  size: _markerSize,
-                ),
+                builder: (context) => const Icon(Icons.location_history, size: _markerSize),
               ),
             ],
           ),
@@ -83,10 +83,7 @@ class HomeState extends State<Home> {
                 point: _customerLocation,
                 width: _markerSize,
                 height: _markerSize,
-                builder: (context) => const Icon(
-                  Icons.location_on,
-                  size: _markerSize,
-                ),
+                builder: (context) => const Icon(Icons.location_on, size: _markerSize),
               ),
             ],
           ),
@@ -108,7 +105,7 @@ class HomeState extends State<Home> {
           ),
         ],
       ),
-      floatingActionButton: FloatingActionButton(
+      fab: FloatingActionButton(
         backgroundColor: Theme.of(context).colorScheme.primary,
         onPressed: () => _moveLocation(_currentLocation),
         child: const Icon(Icons.location_searching),

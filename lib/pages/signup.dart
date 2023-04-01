@@ -13,14 +13,27 @@ import '../utils/device.utils.dart';
 import '../widgets/button.dart';
 import '../widgets/page_wrapper.dart';
 
-class Signup extends StatelessWidget {
+class Signup extends StatefulWidget {
   Signup({super.key});
+
+  @override
+  State<Signup> createState() => _SignupState();
+}
+
+class _SignupState extends State<Signup> {
   final _formKey = GlobalKey<FormState>();
+
   final AuthController _authController = Get.find();
+
   final TextEditingController _firstNameController = TextEditingController();
+
   final TextEditingController _lastNameController = TextEditingController();
+
   final TextEditingController _emailController = TextEditingController();
+
   final TextEditingController _passwordController = TextEditingController();
+
+  bool _viewPassword = false;
 
   @override
   Widget build(BuildContext context) {
@@ -90,16 +103,23 @@ class Signup extends StatelessWidget {
               const SizedBox(height: 20),
               TextFormField(
                 controller: _passwordController,
-                obscureText: true,
+                obscureText: !_viewPassword,
                 validator: ValidationBuilder()
                     .regExp(RegExps.password,
                         "Password contains at least 1 uppercase letter, 1 uppercase letter, 1 number, 1 special character and length above 8!")
                     .required('Please enter your password')
                     .build(),
-                decoration: const InputDecoration(
+                decoration: InputDecoration(
                   hintText: 'Password',
-                  prefixIcon: Icon(Icons.password),
-                  suffixIcon: Icon(Icons.remove_red_eye), //TODO: handle view password
+                  prefixIcon: const Icon(Icons.password),
+                  suffixIcon: IconButton(
+                    icon: Icon(_viewPassword ? Icons.visibility : Icons.visibility_off),
+                    onPressed: () {
+                      setState(() {
+                        _viewPassword = !_viewPassword;
+                      });
+                    },
+                  ),
                 ),
                 style: Theme.of(context).textTheme.bodyMedium?.copyWith(color: Theme.of(context).colorScheme.secondary),
               ),

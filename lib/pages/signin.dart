@@ -10,12 +10,20 @@ import '../routes/app.pages.dart';
 import '../utils/device.utils.dart';
 import '../variants/variants.dart';
 
-class Signin extends StatelessWidget {
+class Signin extends StatefulWidget {
   Signin({super.key});
+
+  @override
+  State<Signin> createState() => _SigninState();
+}
+
+class _SigninState extends State<Signin> {
   final _formKey = GlobalKey<FormState>();
+
   final AuthController _authController = Get.find();
   final TextEditingController _emailController = TextEditingController();
   final TextEditingController _passwordController = TextEditingController();
+  bool _viewPassword = false;
 
   @override
   Widget build(BuildContext context) {
@@ -77,12 +85,19 @@ class Signin extends StatelessWidget {
               const SizedBox(height: 20),
               TextFormField(
                 controller: _passwordController,
-                obscureText: true,
+                obscureText: !_viewPassword,
                 validator: ValidationBuilder().required().build(),
-                decoration: const InputDecoration(
+                decoration: InputDecoration(
                   hintText: 'Password',
-                  prefixIcon: Icon(Icons.password),
-                  suffixIcon: Icon(Icons.remove_red_eye), //TODO: handle view password
+                  prefixIcon: const Icon(Icons.password),
+                  suffixIcon: IconButton(
+                    icon: Icon(_viewPassword ? Icons.visibility : Icons.visibility_off),
+                    onPressed: () {
+                      setState(() {
+                        _viewPassword = !_viewPassword;
+                      });
+                    },
+                  ),
                 ),
                 style: Theme.of(context).textTheme.bodyMedium?.copyWith(color: Theme.of(context).colorScheme.secondary),
               ),

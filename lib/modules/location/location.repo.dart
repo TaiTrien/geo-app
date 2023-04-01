@@ -19,7 +19,7 @@ class LocationRepo {
         return;
       }
 
-      safePrint('Mutation result: ${response.data?.lat}');
+      safePrint('Mutation result: ${response.data}');
     } on ApiException catch (e) {
       safePrint('Mutation failed: $e');
     }

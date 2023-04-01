@@ -22,7 +22,7 @@ class Home extends StatefulWidget {
 class HomeState extends State<Home> {
   final MapController _mapController = MapController();
   final HubController _hubController = Get.find();
-  final LatLng _customerLocation = LatLng(-37.87502821530717, 145.16437548160567);
+  final LatLng _customerLocation = LatLng(-37.8761, 145.166);
   LatLng _currentLocation = LatLng(0, 0);
   static const double _markerSize = 30;
   final String mapUrlTemplate =

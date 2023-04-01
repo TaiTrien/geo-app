@@ -51,8 +51,12 @@ class HubController extends GetxController {
   }
 
   Future<void> getRoutesToCustomer(LatLng current, LatLng customer) async {
-    RouteModel res = await _repo.getDirections(current, customer);
-    toCustomerRoutes = res;
+    try {
+      RouteModel res = await _repo.getDirections(current, customer);
+      toCustomerRoutes = res;
+    } catch (e) {
+      ToastUtils.showError(e.toString());
+    }
   }
 
   getPolylines() {

@@ -21,6 +21,7 @@ class PageWrapper extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
+      resizeToAvoidBottomInset: false,
       appBar: hasAppBar
           ? AppBar(
               backgroundColor: Theme.of(context).colorScheme.background,

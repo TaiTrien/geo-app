@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:geo_app/utils/device.utils.dart';
+import 'package:geo_app/variants/variants.dart';
 
 import '../utils/time.utils.dart';
 
@@ -9,8 +10,6 @@ class ETA extends StatelessWidget {
   final double distanceInMeter;
 
   const ETA({super.key, required this.locationName, required this.timeSpentInSec, required this.distanceInMeter});
-  final String tempImgUrl =
-      "https://images.unsplash.com/photo-1469474968028-56623f02e42e?ixlib=rb-4.0.3&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=1174&q=80";
 
   @override
   Widget build(BuildContext context) {
@@ -28,8 +27,8 @@ class ETA extends StatelessWidget {
             flex: 1,
             child: ClipRRect(
               borderRadius: BorderRadius.circular(20),
-              child: Image.network(
-                tempImgUrl,
+              child: Image.asset(
+                Drawables.location,
                 height: double.maxFinite,
                 fit: BoxFit.cover,
               ),

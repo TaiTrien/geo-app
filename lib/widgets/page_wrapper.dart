@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:geo_app/variants/variants.dart';
 import 'package:geo_app/widgets/loading.dart';
 
 class PageWrapper extends StatelessWidget {
@@ -34,6 +35,11 @@ class PageWrapper extends StatelessWidget {
                       onPressed: () => onBack!(),
                     )
                   : null,
+              actions: const [
+                CircleAvatar(
+                  backgroundImage: AssetImage(Drawables.avatar),
+                ),
+              ],
             )
           : null,
       body: SafeArea(

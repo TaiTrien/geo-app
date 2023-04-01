@@ -9,6 +9,7 @@ class PageWrapper extends StatelessWidget {
   final Widget? fab;
   final bool hasAppBar;
   final String? title;
+  final Function? signout;
   const PageWrapper({
     super.key,
     required this.body,
@@ -17,6 +18,7 @@ class PageWrapper extends StatelessWidget {
     this.fab,
     this.hasAppBar = false,
     this.title,
+    this.signout,
   });
 
   @override
@@ -35,9 +37,13 @@ class PageWrapper extends StatelessWidget {
                       onPressed: () => onBack!(),
                     )
                   : null,
-              actions: const [
-                CircleAvatar(
+              actions: [
+                const CircleAvatar(
                   backgroundImage: AssetImage(Drawables.avatar),
+                ),
+                IconButton(
+                  onPressed: signout != null ? () => signout!() : null,
+                  icon: const Icon(Icons.logout),
                 ),
               ],
             )

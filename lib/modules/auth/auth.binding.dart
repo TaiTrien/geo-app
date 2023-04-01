@@ -5,6 +5,6 @@ import 'package:get/state_manager.dart';
 class AuthBinding extends Bindings {
   @override
   void dependencies() {
-    Get.put(AuthController());
+    Get.put(AuthController(), permanent: true);
   }
 }

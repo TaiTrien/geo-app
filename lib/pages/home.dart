@@ -4,8 +4,10 @@ import 'dart:convert';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:flutter_config/flutter_config.dart';
+import 'package:geo_app/modules/auth/auth.controller.dart';
 import 'package:geo_app/modules/hub/hub.controller.dart';
 import 'package:geo_app/modules/location/location.controller.dart';
+import 'package:geo_app/routes/app.pages.dart';
 import 'package:geo_app/services/location.service.dart';
 import 'package:geo_app/utils/toast.utils.dart';
 import 'package:geo_app/widgets/eta.dart';
@@ -25,6 +27,7 @@ class Home extends StatefulWidget {
 class HomeState extends State<Home> {
   final MapController _mapController = MapController();
   final HubController _hubController = Get.find();
+  final AuthController _authController = Get.find();
   final LocationController _locationController = Get.find();
   late StreamSubscription<Position> locationStream;
   final LatLng _customerLocation = LatLng(-37.8761, 145.166);
@@ -58,7 +61,7 @@ class HomeState extends State<Home> {
   }
 
   void _listenLocationChanged() {
-    StreamSubscription<Position> locationStream = LocationServices.listenLocationChanged();
+    locationStream = LocationServices.listenLocationChanged();
     locationStream.onData((position) {
       LatLng current = LatLng(position.latitude, position.longitude);
       _locationController.saveNewLocation(current);
@@ -74,80 +77,83 @@ class HomeState extends State<Home> {
 
   @override
   Widget build(BuildContext context) {
-    return PageWrapper(
-      hasAppBar: true,
-      title: "Geo map",
-      body: Stack(
-        children: [
-          FlutterMap(
-            mapController: _mapController,
-            options: MapOptions(
-              zoom: 17,
-              onMapReady: () => _initLocations(),
+    return Obx(
+      () => PageWrapper(
+        hasAppBar: true,
+        title: "Geo map",
+        loading: _authController.processing,
+        signout: _authController.signout,
+        body: Stack(
+          children: [
+            FlutterMap(
+              mapController: _mapController,
+              options: MapOptions(
+                zoom: 17,
+                onMapReady: () => _initLocations(),
+              ),
+              children: [
+                TileLayer(
+                  urlTemplate: mapUrlTemplate,
+                  userAgentPackageName: 'demo.geo-app',
+                ),
+                MarkerLayer(
+                  markers: [
+                    Marker(
+                      point: _currentLocation,
+                      width: _markerSize,
+                      height: _markerSize,
+                      builder: (context) => const Icon(Icons.location_history, size: _markerSize),
+                    ),
+                  ],
+                ),
+                MarkerLayer(
+                  markers: [
+                    Marker(
+                      point: _customerLocation,
+                      width: _markerSize,
+                      height: _markerSize,
+                      builder: (context) => const Icon(Icons.location_on, size: _markerSize),
+                    ),
+                  ],
+                ),
+                Obx(() => PolylineLayer(
+                      polylineCulling: false,
+                      polylines: _hubController.getPolylines(),
+                    )),
+                PolygonLayer(
+                  polygons: _hubController.pickupAreas.keys
+                      .map(
+                        (e) => Polygon(
+                          points: _hubController.pickupAreas[e] as List<LatLng>,
+                          isFilled: false, // By default it's false
+                          borderColor: Colors.red,
+                          borderStrokeWidth: 4,
+                        ),
+                      )
+                      .toList(),
+                ),
+              ],
             ),
-            children: [
-              TileLayer(
-                urlTemplate: mapUrlTemplate,
-                userAgentPackageName: 'demo.geo-app',
-              ),
-              MarkerLayer(
-                markers: [
-                  Marker(
-                    point: _currentLocation,
-                    width: _markerSize,
-                    height: _markerSize,
-                    builder: (context) => const Icon(Icons.location_history, size: _markerSize),
-                  ),
-                ],
-              ),
-              MarkerLayer(
-                markers: [
-                  Marker(
-                    point: _customerLocation,
-                    width: _markerSize,
-                    height: _markerSize,
-                    builder: (context) => const Icon(Icons.location_on, size: _markerSize),
-                  ),
-                ],
-              ),
-              Obx(() => PolylineLayer(
-                    polylineCulling: false,
-                    polylines: _hubController.getPolylines(),
+            Positioned(
+              bottom: 80,
+              right: 20,
+              left: 20,
+              child: Obx(() => ETA(
+                    timeSpentInSec: _hubController.toCustomerRoutes.routes.isNotEmpty
+                        ? _hubController.toCustomerRoutes.routes[0].duration
+                        : 0,
+                    distanceInMeter: _hubController.toCustomerRoutes.routes.isNotEmpty
+                        ? _hubController.toCustomerRoutes.routes[0].distance
+                        : 0,
+                    locationName: "Customer location",
                   )),
-              PolygonLayer(
-                polygons: _hubController.pickupAreas.keys
-                    .map(
-                      (e) => Polygon(
-                        points: _hubController.pickupAreas[e] as List<LatLng>,
-                        isFilled: false, // By default it's false
-                        borderColor: Colors.red,
-                        borderStrokeWidth: 4,
-                      ),
-                    )
-                    .toList(),
-              ),
-            ],
-          ),
-          Positioned(
-            bottom: 80,
-            right: 20,
-            left: 20,
-            child: Obx(() => ETA(
-                  timeSpentInSec: _hubController.toCustomerRoutes.routes.isNotEmpty
-                      ? _hubController.toCustomerRoutes.routes[0].duration
-                      : 0,
-                  distanceInMeter: _hubController.toCustomerRoutes.routes.isNotEmpty
-                      ? _hubController.toCustomerRoutes.routes[0].distance
-                      : 0,
-                  locationName: "Customer location",
-                )),
-          )
-        ],
-      ),
-      fab: FloatingActionButton(
-        backgroundColor: Theme.of(context).colorScheme.primary,
-        onPressed: () => _moveLocation(_currentLocation),
-        child: const Icon(Icons.location_searching),
+            )
+          ],
+        ),
+        fab: FloatingActionButton(
+            backgroundColor: Theme.of(context).colorScheme.primary,
+            onPressed: () => _moveLocation(_currentLocation),
+            child: const Icon(Icons.location_searching)),
       ),
     );
   }

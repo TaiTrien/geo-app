@@ -1,5 +1,7 @@
 import 'package:amplify_auth_cognito/amplify_auth_cognito.dart';
 import 'package:amplify_flutter/amplify_flutter.dart';
+import 'package:geo_app/routes/app.pages.dart';
+import 'package:geo_app/utils/toast.utils.dart';
 import 'package:get/get.dart';
 
 class AuthController extends GetxController {
@@ -64,6 +66,20 @@ class AuthController extends GetxController {
       safePrint(e.message);
       processing = false;
       throw Exception(e.message);
+    }
+  }
+
+  Future<void> signout() async {
+    try {
+      processing = true;
+      await Amplify.Auth.signOut();
+      isSignedIn = false;
+      processing = false;
+      Get.offAllNamed(Routes.welcome);
+    } on AuthException catch (e) {
+      safePrint(e.message);
+      processing = false;
+      ToastUtils.showError("Sign out failed");
     }
   }
 }

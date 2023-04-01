@@ -22,6 +22,7 @@ class Home extends StatefulWidget {
 class HomeState extends State<Home> {
   final MapController _mapController = MapController();
   final HubController _hubController = Get.find();
+  late StreamSubscription<Position> locationStream;
   final LatLng _customerLocation = LatLng(-37.8761, 145.166);
   LatLng _currentLocation = LatLng(0, 0);
   static const double _markerSize = 30;
@@ -33,6 +34,12 @@ class HomeState extends State<Home> {
     super.initState();
     _initLocations();
     _listenLocationChanged();
+  }
+
+  @override
+  void dispose() {
+    super.dispose();
+    locationStream.cancel();
   }
 
   void _initLocations() {

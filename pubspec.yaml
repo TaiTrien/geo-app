@@ -16,7 +16,6 @@ dependencies:
   amplify_flutter: ^0.6.13
   amplify_auth_cognito: ^0.6.13
   flutter_config: ^2.0.0
-  mapbox_gl: ^0.16.0
   flutter_animator: ^3.2.2
   shared_preferences: ^2.0.20
   form_validator: ^2.1.1

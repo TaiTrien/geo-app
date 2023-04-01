@@ -1,5 +1,6 @@
 import 'package:geo_app/modules/auth/auth.binding.dart';
 import 'package:geo_app/modules/hub/hub.binding.dart';
+import 'package:geo_app/modules/location/location.binding.dart';
 import 'package:geo_app/pages/home.dart';
 import 'package:geo_app/pages/signin.dart';
 import 'package:geo_app/pages/signup.dart';
@@ -34,10 +35,8 @@ class AppPages {
     ),
     GetPage(
       name: Routes.home,
-      page: () => Home(),
-      bindings: [
-        HubBinding(),
-      ],
+      page: () => const Home(),
+      bindings: [HubBinding(), LocationBinding()],
     ),
   ];
 }

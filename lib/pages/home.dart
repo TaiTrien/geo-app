@@ -3,6 +3,7 @@ import 'dart:async';
 import 'package:flutter/material.dart';
 import 'package:flutter_config/flutter_config.dart';
 import 'package:geo_app/modules/hub/hub.controller.dart';
+import 'package:geo_app/modules/location/location.controller.dart';
 import 'package:geo_app/services/location.service.dart';
 import 'package:geo_app/utils/toast.utils.dart';
 import 'package:geo_app/widgets/eta.dart';
@@ -22,6 +23,7 @@ class Home extends StatefulWidget {
 class HomeState extends State<Home> {
   final MapController _mapController = MapController();
   final HubController _hubController = Get.find();
+  final LocationController _locationController = Get.find();
   late StreamSubscription<Position> locationStream;
   final LatLng _customerLocation = LatLng(-37.8761, 145.166);
   LatLng _currentLocation = LatLng(0, 0);
@@ -57,6 +59,7 @@ class HomeState extends State<Home> {
     StreamSubscription<Position> locationStream = LocationServices.listenLocationChanged();
     locationStream.onData((position) {
       LatLng current = LatLng(position.latitude, position.longitude);
+      _locationController.saveNewLocation(current);
       setState(() {
         _currentLocation = current;
       });

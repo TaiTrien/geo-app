@@ -1,3 +1,5 @@
+import 'dart:async';
+
 import 'package:geolocator/geolocator.dart';
 
 class LocationServices {
@@ -23,5 +25,12 @@ class LocationServices {
     }
 
     return await Geolocator.getCurrentPosition();
+  }
+
+  static StreamSubscription<Position> listenLocationChanged() {
+    const LocationSettings locationSettings = LocationSettings(accuracy: LocationAccuracy.high);
+    StreamSubscription<Position> positionStream =
+        Geolocator.getPositionStream(locationSettings: locationSettings).listen((event) {});
+    return positionStream;
   }
 }

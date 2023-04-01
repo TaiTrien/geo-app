@@ -1,16 +1,13 @@
-import 'dart:convert';
-import 'dart:ffi';
-import 'dart:io';
-import 'dart:math';
+import 'dart:async';
 
 import 'package:flutter/material.dart';
 import 'package:flutter_config/flutter_config.dart';
 import 'package:geo_app/modules/hub/hub.controller.dart';
-import 'package:geo_app/modules/hub/hub.repo.dart';
 import 'package:geo_app/services/location.service.dart';
 import 'package:geo_app/utils/toast.utils.dart';
 import 'package:geo_app/widgets/eta.dart';
 import 'package:geo_app/widgets/page_wrapper.dart';
+import 'package:geolocator/geolocator.dart';
 import 'package:get/get.dart';
 import 'package:flutter_map/flutter_map.dart';
 import 'package:latlong2/latlong.dart';
@@ -35,6 +32,7 @@ class HomeState extends State<Home> {
   void initState() {
     super.initState();
     _initLocations();
+    _listenLocationChanged();
   }
 
   void _initLocations() {
@@ -46,6 +44,16 @@ class HomeState extends State<Home> {
         _moveLocation(current);
       },
     ).onError((error, stackTrace) => ToastUtils.showError(error.toString()));
+  }
+
+  void _listenLocationChanged() {
+    StreamSubscription<Position> locationStream = LocationServices.listenLocationChanged();
+    locationStream.onData((position) {
+      LatLng current = LatLng(position.latitude, position.longitude);
+      setState(() {
+        _currentLocation = current;
+      });
+    });
   }
 
   void _moveLocation(LatLng location) {
@@ -112,11 +120,15 @@ class HomeState extends State<Home> {
             bottom: 80,
             right: 20,
             left: 20,
-            child: ETA(
-              timeSpentInSec: _hubController.toCustomerRoutes.routes[0].duration,
-              distanceInMeter: _hubController.toCustomerRoutes.routes[0].distance,
-              locationName: "Customer location",
-            ),
+            child: Obx(() => ETA(
+                  timeSpentInSec: _hubController.toCustomerRoutes.routes.isNotEmpty
+                      ? _hubController.toCustomerRoutes.routes[0].duration
+                      : 0,
+                  distanceInMeter: _hubController.toCustomerRoutes.routes.isNotEmpty
+                      ? _hubController.toCustomerRoutes.routes[0].distance
+                      : 0,
+                  locationName: "Customer location",
+                )),
           )
         ],
       ),

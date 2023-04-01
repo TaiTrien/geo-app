@@ -28,7 +28,7 @@ class LocationServices {
   }
 
   static StreamSubscription<Position> listenLocationChanged() {
-    const LocationSettings locationSettings = LocationSettings(accuracy: LocationAccuracy.high);
+    const LocationSettings locationSettings = LocationSettings(accuracy: LocationAccuracy.high, distanceFilter: 100);
     StreamSubscription<Position> positionStream =
         Geolocator.getPositionStream(locationSettings: locationSettings).listen((event) {});
     return positionStream;

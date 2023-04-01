@@ -59,7 +59,7 @@ class HubController extends GetxController {
     }
   }
 
-  getPolylines() {
+  List<Polyline> getPolylines() {
     return toCustomerRoutes.routes
         .map(
           (route) => Polyline(

@@ -1,5 +1,6 @@
 import 'dart:ui';
 
+import 'package:amplify_api/amplify_api.dart';
 import 'package:amplify_auth_cognito/amplify_auth_cognito.dart';
 import 'package:amplify_datastore/amplify_datastore.dart';
 import 'package:amplify_flutter/amplify_flutter.dart';
@@ -11,7 +12,7 @@ import 'package:geo_app/routes/app.pages.dart';
 import 'package:geo_app/themes/app.theme.dart';
 import 'package:get/get_navigation/src/root/get_material_app.dart';
 import 'package:get/get_navigation/src/routes/get_route.dart';
-import 'config/amplify.config.dart';
+import 'amplifyconfiguration.dart';
 import 'models/model_provider.dart';
 import 'pages/splash.dart';
 
@@ -25,8 +26,9 @@ void main() async {
 
 Future<void> configureAmplify() async {
   final datastorePlugin = AmplifyDataStore(modelProvider: ModelProvider.instance);
-  await Amplify.addPlugin(datastorePlugin);
-  await Amplify.addPlugin(AmplifyAuthCognito());
+  final apiPlugin = AmplifyAPI(modelProvider: ModelProvider.instance);
+  await Amplify.addPlugins([datastorePlugin, AmplifyAuthCognito(), apiPlugin]);
+
   try {
     await Amplify.configure(amplifyconfig);
   } on AmplifyAlreadyConfiguredException {

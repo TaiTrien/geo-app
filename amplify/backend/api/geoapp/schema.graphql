@@ -1,6 +1,5 @@
-type Location @model @auth(rules: [{allow: public}]) {
+type Location @model @auth(rules: [{allow: public}, {allow: private}]) {
   id: ID!
   lat: Float
   lng: Float
-  createdAt: AWSTimestamp
-}
+} 

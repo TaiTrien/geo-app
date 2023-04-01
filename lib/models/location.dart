@@ -30,7 +30,7 @@ class Location extends Model {
   final String id;
   final double? _lat;
   final double? _lng;
-  final TemporalTimestamp? _createdAt;
+  final TemporalDateTime? _createdAt;
   final TemporalDateTime? _updatedAt;
 
   @override
@@ -54,7 +54,7 @@ class Location extends Model {
     return _lng;
   }
   
-  TemporalTimestamp? get createdAt {
+  TemporalDateTime? get createdAt {
     return _createdAt;
   }
   
@@ -64,12 +64,11 @@ class Location extends Model {
   
   const Location._internal({required this.id, lat, lng, createdAt, updatedAt}): _lat = lat, _lng = lng, _createdAt = createdAt, _updatedAt = updatedAt;
   
-  factory Location({String? id, double? lat, double? lng, TemporalTimestamp? createdAt}) {
+  factory Location({String? id, double? lat, double? lng}) {
     return Location._internal(
       id: id == null ? UUID.getUUID() : id,
       lat: lat,
-      lng: lng,
-      createdAt: createdAt);
+      lng: lng);
   }
   
   bool equals(Object other) {
@@ -82,8 +81,7 @@ class Location extends Model {
     return other is Location &&
       id == other.id &&
       _lat == other._lat &&
-      _lng == other._lng &&
-      _createdAt == other._createdAt;
+      _lng == other._lng;
   }
   
   @override
@@ -97,30 +95,29 @@ class Location extends Model {
     buffer.write("id=" + "$id" + ", ");
     buffer.write("lat=" + (_lat != null ? _lat!.toString() : "null") + ", ");
     buffer.write("lng=" + (_lng != null ? _lng!.toString() : "null") + ", ");
-    buffer.write("createdAt=" + (_createdAt != null ? _createdAt!.toString() : "null") + ", ");
+    buffer.write("createdAt=" + (_createdAt != null ? _createdAt!.format() : "null") + ", ");
     buffer.write("updatedAt=" + (_updatedAt != null ? _updatedAt!.format() : "null"));
     buffer.write("}");
     
     return buffer.toString();
   }
   
-  Location copyWith({double? lat, double? lng, TemporalTimestamp? createdAt}) {
+  Location copyWith({double? lat, double? lng}) {
     return Location._internal(
       id: id,
       lat: lat ?? this.lat,
-      lng: lng ?? this.lng,
-      createdAt: createdAt ?? this.createdAt);
+      lng: lng ?? this.lng);
   }
   
   Location.fromJson(Map<String, dynamic> json)  
     : id = json['id'],
       _lat = (json['lat'] as num?)?.toDouble(),
       _lng = (json['lng'] as num?)?.toDouble(),
-      _createdAt = json['createdAt'] != null ? TemporalTimestamp.fromSeconds(json['createdAt']) : null,
+      _createdAt = json['createdAt'] != null ? TemporalDateTime.fromString(json['createdAt']) : null,
       _updatedAt = json['updatedAt'] != null ? TemporalDateTime.fromString(json['updatedAt']) : null;
   
   Map<String, dynamic> toJson() => {
-    'id': id, 'lat': _lat, 'lng': _lng, 'createdAt': _createdAt?.toSeconds(), 'updatedAt': _updatedAt?.format()
+    'id': id, 'lat': _lat, 'lng': _lng, 'createdAt': _createdAt?.format(), 'updatedAt': _updatedAt?.format()
   };
   
   Map<String, Object?> toMap() => {
@@ -131,7 +128,6 @@ class Location extends Model {
   static final QueryField ID = QueryField(fieldName: "id");
   static final QueryField LAT = QueryField(fieldName: "lat");
   static final QueryField LNG = QueryField(fieldName: "lng");
-  static final QueryField CREATEDAT = QueryField(fieldName: "createdAt");
   static var schema = Model.defineSchema(define: (ModelSchemaDefinition modelSchemaDefinition) {
     modelSchemaDefinition.name = "Location";
     modelSchemaDefinition.pluralName = "Locations";
@@ -139,6 +135,14 @@ class Location extends Model {
     modelSchemaDefinition.authRules = [
       AuthRule(
         authStrategy: AuthStrategy.PUBLIC,
+        operations: [
+          ModelOperation.CREATE,
+          ModelOperation.UPDATE,
+          ModelOperation.DELETE,
+          ModelOperation.READ
+        ]),
+      AuthRule(
+        authStrategy: AuthStrategy.PRIVATE,
         operations: [
           ModelOperation.CREATE,
           ModelOperation.UPDATE,
@@ -161,10 +165,11 @@ class Location extends Model {
       ofType: ModelFieldType(ModelFieldTypeEnum.double)
     ));
     
-    modelSchemaDefinition.addField(ModelFieldDefinition.field(
-      key: Location.CREATEDAT,
+    modelSchemaDefinition.addField(ModelFieldDefinition.nonQueryField(
+      fieldName: 'createdAt',
       isRequired: false,
-      ofType: ModelFieldType(ModelFieldTypeEnum.timestamp)
+      isReadOnly: true,
+      ofType: ModelFieldType(ModelFieldTypeEnum.dateTime)
     ));
     
     modelSchemaDefinition.addField(ModelFieldDefinition.nonQueryField(
